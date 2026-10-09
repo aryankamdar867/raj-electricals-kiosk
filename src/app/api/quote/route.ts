@@ -11,10 +11,6 @@ export async function POST(request: Request) {
     if (!body || !body.action) {
       return NextResponse.json({ success: false, error: "Missing pipeline action parameter." }, { status: 400 });
     }
-    const razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID || '',
-      key_secret: process.env.RAZORPAY_KEY_SECRET || '',
-    });
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // ==========================================
@@ -43,23 +39,35 @@ export async function POST(request: Request) {
 
       if (dbError) throw dbError;
 
-      // 2. Generate Razorpay QR Code for ₹1 processing fee (Testing Mode)
+      // 2. Generate Razorpay QR Code for ₹1 processing fee (Test Mode)
       let qrCodeUrl = '';
-      try {
-        const qrCode = await razorpay.qrCode.create({
-          type: 'upi_qr',
-          name: `Quotation Fee - ${quoteRecord.id}`,
-          usage: 'single_use',
-          fixed_amount: true,
-          payment_amount: 100, // 1.00 INR in paise (100 paise)
-          description: `Quotation fee for ${customer.name || 'Customer'}`,
-          notes: {
-            quoteId: String(quoteRecord.id)
-          }
-        });
-        qrCodeUrl = qrCode.image_url;
-      } catch (qrErr: any) {
-        console.error("⚠️ [Razorpay] QR API call error, generating UPI QR fallback:", qrErr?.message || qrErr);
+      const keyId = process.env.RAZORPAY_KEY_ID;
+      const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+      if (keyId && keySecret) {
+        try {
+          const razorpay = new Razorpay({
+            key_id: keyId,
+            key_secret: keySecret,
+          });
+          const qrCode = await razorpay.qrCode.create({
+            type: 'upi_qr',
+            name: `Quotation Fee - ${quoteRecord.id}`,
+            usage: 'single_use',
+            fixed_amount: true,
+            payment_amount: 100, // 1.00 INR in paise (100 paise)
+            description: `Quotation fee for ${customer.name || 'Customer'}`,
+            notes: {
+              quoteId: String(quoteRecord.id)
+            }
+          });
+          qrCodeUrl = qrCode.image_url;
+        } catch (qrErr: any) {
+          console.error("⚠️ [Razorpay] QR API call error, generating UPI QR fallback:", qrErr?.message || qrErr);
+          qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=1.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
+        }
+      } else {
+        console.log("ℹ️ [Razorpay] Keys not configured in Vercel Env Vars, using UPI QR fallback.");
         qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=1.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
       }
 
