@@ -355,7 +355,7 @@ export default function Kiosk() {
         <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-xl mx-auto w-full">
           <div className="text-center mb-8">
             <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200">WELCOME TO RAJ ELECTRICALS</span><br></br>
-            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200 mt-2">Get Your Quotation For just Rs. 199/-</span>
+            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200 mt-2">Get Your Quotation For just Re. 1/- (Test Mode)</span>
             <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-3">Start New Estimation</h2>
           </div>
 
@@ -693,8 +693,8 @@ export default function Kiosk() {
               
               <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl mb-4 flex justify-between items-center text-left">
                 <div>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Fee</p>
-                  <p className="text-2xl font-black text-slate-950">₹199.00</p>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Fee (Testing)</p>
+                  <p className="text-2xl font-black text-slate-950">₹1.00</p>
                 </div>
                 <div className="bg-amber-100 text-amber-900 rounded-lg p-2"><Smartphone size={20} /></div>
               </div>
