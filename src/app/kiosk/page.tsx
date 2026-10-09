@@ -307,29 +307,6 @@ export default function Kiosk() {
     }
   };
 
-  const handleManualVerifyPayment = async () => {
-    if (!activeQuoteId) return;
-    setCheckingPayment(true);
-    try {
-      const res = await fetch('/api/quote', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'VERIFY_PAYMENT', quoteId: activeQuoteId, mockTxnId: 'COUNTER_VERIFIED' }),
-      });
-      const result = await res.json();
-      if (result.success) {
-        setCurrentStep('SUCCESS');
-        setTimeout(() => { resetWorkflow(); }, 7000);
-      } else {
-        alert(result.error || "Payment verification failed.");
-      }
-    } catch (err) {
-      alert("Verification timeout exception.");
-    } finally {
-      setCheckingPayment(false);
-    }
-  };
-
   return (
     <main className="min-h-screen bg-slate-50 text-slate-800 flex flex-col select-none antialiased font-sans">
       
@@ -355,7 +332,7 @@ export default function Kiosk() {
         <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-xl mx-auto w-full">
           <div className="text-center mb-8">
             <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200">WELCOME TO RAJ ELECTRICALS</span><br></br>
-            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200 mt-2">Get Your Quotation For just Re. 1/- (Test Mode)</span>
+            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200 mt-2">Get Your Quotation For just Rs. 199/-</span>
             <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-3">Start New Estimation</h2>
           </div>
 
@@ -693,12 +670,12 @@ export default function Kiosk() {
               
               <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl mb-4 flex justify-between items-center text-left">
                 <div>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Fee (Testing)</p>
-                  <p className="text-2xl font-black text-slate-950">₹1.00</p>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Fee</p>
+                  <p className="text-2xl font-black text-slate-950">₹199.00</p>
                 </div>
                 <div className="bg-amber-100 text-amber-900 rounded-lg p-2"><Smartphone size={20} /></div>
               </div>
-<div className="w-64 h-64 bg-white border border-slate-200 rounded-xl flex items-center justify-center overflow-hidden shadow-sm p-2 mx-auto mb-4">
+              <div className="w-64 h-64 bg-white border border-slate-200 rounded-xl flex items-center justify-center overflow-hidden shadow-sm p-2 mx-auto mb-4">
                 {qrCodeUrl ? (
                   <img src={qrCodeUrl} alt="Razorpay UPI QR Code" className="w-full h-full object-contain" />
                 ) : (
@@ -707,13 +684,6 @@ export default function Kiosk() {
               </div>
 
               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-2">Waiting for payment confirmation...</p>
-              <button
-                disabled={checkingPayment}
-                onClick={handleManualVerifyPayment}
-                className="mt-4 w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer shadow-md disabled:opacity-50"
-              >
-                {checkingPayment ? 'Verifying Payment...' : 'I Have Paid / Verify Payment →'}
-              </button>
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@ export async function sendQuoteNotifications(quote: any) {
 ----------------------------------------
 Hello *${quote.customer_name}*,
 
-Your setup curation fee of *₹1* was received successfully. Here is your itemized estimate summary:
+Your setup curation fee of *₹199* was received successfully. Here is your itemized estimate summary:
 
 *Items Selected:*
 ${itemizedText || 'No standard items indexed.'}
@@ -61,7 +61,7 @@ _Please present this verified summary at the main counter desk to pull your modu
     try {
       const resend = new Resend(resendApiKey);
 
-      const emailHtmlBody = `<div style="font-family: Arial; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;"><div style="background-color:#1a1a1a; padding:24px; text-align:center; border-bottom:4px solid #d4af37;"><h1 style="color:#d4af37; margin:0;">RAJ ELECTRICALS</h1><p style="color:#a0aec0; margin:4px 0 0 0; font-size:11px; text-transform:uppercase; letter-spacing:2px;">Verified Payment Receipt</p></div><div style="padding:24px;"><p>Hello <strong>${quote.customer_name}</strong>,</p><p>We have successfully processed your processing fee of ₹1. Here is your compiled configuration list:</p><table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:13px;"><thead><tr style="background-color:#f7fafc;"><th style="padding:12px; text-align:left;">Specification</th><th style="padding:12px; text-align:center;">Qty</th><th style="padding:12px; text-align:right;">Rate</th><th style="padding:12px; text-align:right;">Total</th></tr></thead><tbody>${itemizedHtmlRows}</tbody></table><div style="text-align:right; padding:16px; background-color:#f7fafc; border-radius:8px;"><strong>Estimated Net Value: ₹${quote.total_amount}</strong></div></div></div>`;
+      const emailHtmlBody = `<div style="font-family: Arial; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;"><div style="background-color:#1a1a1a; padding:24px; text-align:center; border-bottom:4px solid #d4af37;"><h1 style="color:#d4af37; margin:0;">RAJ ELECTRICALS</h1><p style="color:#a0aec0; margin:4px 0 0 0; font-size:11px; text-transform:uppercase; letter-spacing:2px;">Verified Payment Receipt</p></div><div style="padding:24px;"><p>Hello <strong>${quote.customer_name}</strong>,</p><p>We have successfully processed your processing fee of ₹199. Here is your compiled configuration list:</p><table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:13px;"><thead><tr style="background-color:#f7fafc;"><th style="padding:12px; text-align:left;">Specification</th><th style="padding:12px; text-align:center;">Qty</th><th style="padding:12px; text-align:right;">Rate</th><th style="padding:12px; text-align:right;">Total</th></tr></thead><tbody>${itemizedHtmlRows}</tbody></table><div style="text-align:right; padding:16px; background-color:#f7fafc; border-radius:8px;"><strong>Estimated Net Value: ₹${quote.total_amount}</strong></div></div></div>`;
 
       // Email #1: Customer receipt only
       if (quote.customer_email) {

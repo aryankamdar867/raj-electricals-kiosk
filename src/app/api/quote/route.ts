@@ -55,7 +55,7 @@ export async function POST(request: Request) {
             name: `Quotation Fee - ${quoteRecord.id}`,
             usage: 'single_use',
             fixed_amount: true,
-            payment_amount: 100, // 1.00 INR in paise (100 paise)
+            payment_amount: 19900, // 199.00 INR in paise
             description: `Quotation fee for ${customer.name || 'Customer'}`,
             notes: {
               quoteId: String(quoteRecord.id)
@@ -64,11 +64,11 @@ export async function POST(request: Request) {
           qrCodeUrl = qrCode.image_url;
         } catch (qrErr: any) {
           console.error("⚠️ [Razorpay] QR API call error, generating UPI QR fallback:", qrErr?.message || qrErr);
-          qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=1.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
+          qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=199.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
         }
       } else {
         console.log("ℹ️ [Razorpay] Keys not configured in Vercel Env Vars, using UPI QR fallback.");
-        qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=1.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
+        qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=199.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
       }
 
       // 3. Return payment details & QR code URL to client
