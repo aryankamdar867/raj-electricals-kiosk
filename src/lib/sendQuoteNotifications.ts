@@ -24,17 +24,29 @@ export async function sendQuoteNotifications(quote: any) {
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const whatsappFrom = process.env.TWILIO_WHATSAPP_FROM;
 
+  const isFreeQuote = quote.payment_id === 'FREE_WIRE_QUOTE';
+
   if (accountSid && authToken && whatsappFrom && quote.customer_phone) {
     try {
       const twilioClient = twilio(accountSid, authToken);
-      const rawPhone = quote.customer_phone.trim();
-      const formattedPhone = rawPhone.startsWith('+') ? rawPhone : `+91${rawPhone}`;
+      const cleanDigits = quote.customer_phone.replace(/\D/g, '');
+      const formattedPhone = quote.customer_phone.trim().startsWith('+')
+        ? `+${cleanDigits}`
+        : `+91${cleanDigits.slice(-10)}`;
 
-      const whatsappMessage = `*⚡ RAJ ELECTRICALS — ESTIMATE PAID*
+      const statusHeader = isFreeQuote
+        ? '*⚡ RAJ ELECTRICALS — WIRE ESTIMATE*'
+        : '*⚡ RAJ ELECTRICALS — ESTIMATE PAID*';
+
+      const introText = isFreeQuote
+        ? 'Your Wire & Cable estimation summary has been compiled successfully. Here is your itemized estimate summary:'
+        : 'Your setup curation fee of *₹199* was received successfully. Here is your itemized estimate summary:';
+
+      const whatsappMessage = `${statusHeader}
 ----------------------------------------
 Hello *${quote.customer_name}*,
 
-Your setup curation fee of *₹199* was received successfully. Here is your itemized estimate summary:
+${introText}
 
 *Items Selected:*
 ${itemizedText || 'No standard items indexed.'}
@@ -48,7 +60,7 @@ _Please present this verified summary at the main counter desk to pull your modu
         to: `whatsapp:${formattedPhone}`,
         body: whatsappMessage,
       });
-      console.log("✅ [Twilio] Message dispatched following verification confirmation.");
+      console.log("✅ [Twilio] WhatsApp message dispatched to", formattedPhone);
     } catch (tErr: any) {
       console.error("⚠️ [Twilio] Notification skipped during checkout:", tErr.message);
     }
