@@ -75,7 +75,7 @@ const getWireRollLength = (variant: WireVariant, size: string): number => {
 const getWirePricePerMeter = (variant: WireVariant, size: string): number => {
   const rollLength = getWireRollLength(variant, size);
   const rollPrice = variant.prices[size] || 0;
-  return rollLength > 0 ? rollPrice / rollLength : 0;
+  return rollLength > 0 ? Math.round(rollPrice / rollLength) : 0;
 };
 
 // Transcribed from image_290c58.jpg / image_2987fc.jpg
@@ -228,23 +228,23 @@ export default function Kiosk() {
   };
 
   const calculateTotal = () => {
-    return Object.entries(cart).reduce((total, [itemName, qty]) => {
+    return Math.round(Object.entries(cart).reduce((total, [itemName, qty]) => {
       const matchingProduct = products.find(
         p => p.name.toUpperCase() === itemName.toUpperCase() && 
              p.finish.toUpperCase() === selectedFinish.toUpperCase()
       );
       return total + (matchingProduct ? matchingProduct.price * qty : 0);
-    }, 0);
+    }, 0));
   };
 
   const selectedWireVariant = WIRE_VARIANTS.find(v => v.key === selectedWireVariantKey);
 
   const calculateWireTotal = () => {
     if (!selectedWireVariant) return 0;
-    return Object.entries(wireCart).reduce((total, [size, meters]) => {
+    return Math.round(Object.entries(wireCart).reduce((total, [size, meters]) => {
       const pricePerMeter = getWirePricePerMeter(selectedWireVariant, size);
       return total + pricePerMeter * meters;
-    }, 0);
+    }, 0));
   };
 
   const handleWireMetersChange = (size: string, valString: string) => {
@@ -265,11 +265,11 @@ export default function Kiosk() {
         p => p.name.toUpperCase() === itemName.toUpperCase() && 
              p.finish.toUpperCase() === selectedFinish.toUpperCase()
       );
-      return { item_name: `${itemName} [${selectedBrand} - ${selectedFinish}]`, qty, price: matchingProduct ? matchingProduct.price : 0 };
+      return { item_name: `${itemName} [${selectedBrand} - ${selectedFinish}]`, qty, price: matchingProduct ? Math.round(matchingProduct.price) : 0 };
     });
 
     const wireItems = Object.entries(wireCart).map(([size, meters]) => {
-      const pricePerMeter = selectedWireVariant ? getWirePricePerMeter(selectedWireVariant, size) : 0;
+      const pricePerMeter = selectedWireVariant ? Math.round(getWirePricePerMeter(selectedWireVariant, size)) : 0;
       return {
         item_name: `${size} WIRE [${selectedWireVariant ? selectedWireVariant.label : ''}] - ${meters}m`,
         qty: meters,
@@ -278,7 +278,7 @@ export default function Kiosk() {
     });
 
     const orderItems = [...switchItems, ...wireItems];
-    const orderTotal = calculateTotal() + calculateWireTotal();
+    const orderTotal = Math.round(calculateTotal() + calculateWireTotal());
     try {
       const res = await fetch('/api/quote', {
         method: 'POST',

@@ -12,12 +12,15 @@ export async function sendQuoteNotifications(quote: any) {
   if (Array.isArray(items)) {
     items.forEach((item: any) => {
       const name = item?.item_name || item?.name || 'Electrical Item';
-      const qty = item?.qty || item?.quantity || 1;
-      const price = item?.price || 0;
-      itemizedText += `• ${name}\n  Qty: ${qty} × ₹${price} = ₹${qty * price}\n`;
-      itemizedHtmlRows += `<tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding:12px; font-weight:bold;">${name}</td><td style="padding:12px; text-align:center;">${qty}</td><td style="padding:12px; text-align:right;">₹${price}</td><td style="padding:12px; text-align:right; font-weight:bold;">₹${qty * price}</td></tr>`;
+      const qty = Math.round(item?.qty || item?.quantity || 1);
+      const price = Math.round(item?.price || 0);
+      const itemTotal = Math.round(qty * price);
+      itemizedText += `• ${name}\n  Qty: ${qty} × ₹${price} = ₹${itemTotal}\n`;
+      itemizedHtmlRows += `<tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding:12px; font-weight:bold;">${name}</td><td style="padding:12px; text-align:center;">${qty}</td><td style="padding:12px; text-align:right;">₹${price}</td><td style="padding:12px; text-align:right; font-weight:bold;">₹${itemTotal}</td></tr>`;
     });
   }
+
+  const roundedTotal = Math.round(quote.total_amount || 0);
 
   // TWILIO WHATSAPP OUTBOUND
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -51,7 +54,7 @@ ${introText}
 *Items Selected:*
 ${itemizedText || 'No standard items indexed.'}
 ----------------------------------------
-*Estimated Net Total: ₹${quote.total_amount || 0}*
+*Estimated Net Total: ₹${roundedTotal}*
 
 _Please present this verified summary at the main counter desk to pull your modular stock allocation._`;
 
@@ -62,7 +65,8 @@ _Please present this verified summary at the main counter desk to pull your modu
       });
       console.log("✅ [Twilio] WhatsApp message dispatched to", formattedPhone);
     } catch (tErr: any) {
-      console.error("⚠️ [Twilio] Notification skipped during checkout:", tErr.message);
+      console.error("⚠️ [Twilio] WhatsApp dispatch failed/skipped:", tErr?.message || tErr);
+      if (tErr?.code) console.error(`⚠️ [Twilio Error Code]: ${tErr.code} (See Twilio Docs: https://www.twilio.com/docs/api/errors/${tErr.code})`);
     }
   }
 
@@ -73,7 +77,7 @@ _Please present this verified summary at the main counter desk to pull your modu
     try {
       const resend = new Resend(resendApiKey);
 
-      const emailHtmlBody = `<div style="font-family: Arial; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;"><div style="background-color:#1a1a1a; padding:24px; text-align:center; border-bottom:4px solid #d4af37;"><h1 style="color:#d4af37; margin:0;">RAJ ELECTRICALS</h1><p style="color:#a0aec0; margin:4px 0 0 0; font-size:11px; text-transform:uppercase; letter-spacing:2px;">Verified Payment Receipt</p></div><div style="padding:24px;"><p>Hello <strong>${quote.customer_name}</strong>,</p><p>We have successfully processed your processing fee of ₹199. Here is your compiled configuration list:</p><table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:13px;"><thead><tr style="background-color:#f7fafc;"><th style="padding:12px; text-align:left;">Specification</th><th style="padding:12px; text-align:center;">Qty</th><th style="padding:12px; text-align:right;">Rate</th><th style="padding:12px; text-align:right;">Total</th></tr></thead><tbody>${itemizedHtmlRows}</tbody></table><div style="text-align:right; padding:16px; background-color:#f7fafc; border-radius:8px;"><strong>Estimated Net Value: ₹${quote.total_amount}</strong></div></div></div>`;
+      const emailHtmlBody = `<div style="font-family: Arial; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;"><div style="background-color:#1a1a1a; padding:24px; text-align:center; border-bottom:4px solid #d4af37;"><h1 style="color:#d4af37; margin:0;">RAJ ELECTRICALS</h1><p style="color:#a0aec0; margin:4px 0 0 0; font-size:11px; text-transform:uppercase; letter-spacing:2px;">Verified Payment Receipt</p></div><div style="padding:24px;"><p>Hello <strong>${quote.customer_name}</strong>,</p><p>We have successfully processed your configuration estimate. Here is your compiled item list:</p><table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:13px;"><thead><tr style="background-color:#f7fafc;"><th style="padding:12px; text-align:left;">Specification</th><th style="padding:12px; text-align:center;">Qty</th><th style="padding:12px; text-align:right;">Rate</th><th style="padding:12px; text-align:right;">Total</th></tr></thead><tbody>${itemizedHtmlRows}</tbody></table><div style="text-align:right; padding:16px; background-color:#f7fafc; border-radius:8px;"><strong>Estimated Net Value: ₹${roundedTotal}</strong></div></div></div>`;
 
       // Email #1: Customer receipt only
       if (quote.customer_email) {
