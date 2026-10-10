@@ -14,9 +14,9 @@ const BRAND_IMAGES: { [key: string]: string } = {
   'Goldmedal': '/Goldmedal.JPG',
   'Norisys': '/norisys.JPG',
   'Polycab': '/Polycab.JPG',
-  'L&T': '/LT.JPG',
-  'Belezza': '/Belezza.JPG',
-  'White Lion Automation & Touch': '/WhiteLion.JPG'
+  'L&T': 'https://5.imimg.com/data5/SELLER/Default/2021/3/BW/XQ/MQ/12530182/l-t-entice-modular-switches-500x500.jpg',
+  'Belezza': 'https://5.imimg.com/data5/SELLER/Default/2023/9/347209733/XY/AB/CD/193821034/belezza-modular-switches-500x500.jpg',
+  'White Lion Automation & Touch': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3b-n39uJ5xBzhoc1UkEWjyj9fBt_OTBNJg6bewT7TKA&s=10'
 };
 
 const BASE_ITEMS = [
@@ -125,7 +125,7 @@ const ANCHOR_HANDWRITTEN_FINISHES = [
 // Transcribed from image_299038.jpg
 const POLYCAB_HANDWRITTEN_FINISHES = [
   { name: "Elisa White", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuFOehv0E8Mg7hS1TPz6bAteyggpEA0lmVHGkCubEnlQ&s=10" },
-  { name: "Elisa White Chrome", img: "" },
+  { name: "Elisa White Chrome", img: "https://5.imimg.com/data5/SELLER/Default/2023/5/308696803/VK/DF/QZ/82767073/polycab-elisa-switches-500x500.jpg" },
   { name: "Elisa Grey", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeqPEUulR-FgNhmOlpP_-Qhfn_zcRVrFMprzpKMhnHgw&s=10" },
   { name: "Elisa Black", img: "data:image/png;base64,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" },
   { name: "Elisa Grey/Black Chrome", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwjBzrCx_ZiKd4Ywi7u1fJ4zMcei-GZkVEhUp3F7AIrA&s" },
@@ -357,9 +357,14 @@ export default function Kiosk() {
 
       {/* STEP 1.5: CHOOSE PRODUCT CATEGORY (HUB) */}
       {currentStep === 'CATEGORY' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-2">
+            <button onClick={() => setCurrentStep('CUSTOMER')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+              ← Back to Client Details
+            </button>
+          </div>
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-3">What Are You Quoting Today?</h2>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-1">What Are You Quoting Today?</h2>
             <p className="text-xs text-slate-400 font-bold mt-2 uppercase tracking-widest">Add items from as many categories as you need</p>
           </div>
 
@@ -427,9 +432,14 @@ export default function Kiosk() {
 
       {/* STEP: WIRE & CABLE - CHOOSE VARIANT */}
       {currentStep === 'WIRE_VARIANT' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-2">
+            <button onClick={() => setCurrentStep('CATEGORY')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+              ← Back to Categories
+            </button>
+          </div>
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-3">Choose Wire Range</h2>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-1">Choose Wire Range</h2>
             <p className="text-xs text-slate-400 font-bold mt-2 uppercase tracking-widest">PolyCab Wire &amp; Cable</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
@@ -479,6 +489,7 @@ export default function Kiosk() {
               </div>
             </div>
             <div className="pt-4 border-t border-slate-100 space-y-2">
+              <button onClick={() => setCurrentStep('WIRE_VARIANT')} className="w-full border border-slate-200 text-slate-700 py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50 mb-2">← Back to Wire Range</button>
               <button disabled={Object.keys(wireCart).length === 0} onClick={() => setCurrentStep('CATEGORY')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all disabled:bg-slate-100 disabled:text-slate-400 cursor-pointer shadow-md">Add Wire &amp; Cable to Quote →</button>
             </div>
           </div>
@@ -516,6 +527,7 @@ export default function Kiosk() {
               </div>
             </div>
             <div className="pt-4 border-t border-slate-100 space-y-2">
+              <button onClick={() => setCurrentStep('CATEGORY')} className="w-full border border-slate-200 text-slate-700 py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50 mb-2">← Back to Categories</button>
               <button disabled={Object.keys(cart).length === 0} onClick={() => setCurrentStep('BRAND')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all disabled:bg-slate-100 disabled:text-slate-400 cursor-pointer shadow-md">Proceed to Company Selection →</button>
             </div>
           </div>
@@ -524,9 +536,14 @@ export default function Kiosk() {
 
       {/* STEP 3: COMPANY SELECTION */}
       {currentStep === 'BRAND' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-2">
+            <button onClick={() => setCurrentStep('ITEMS')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+              ← Back to Select Modules
+            </button>
+          </div>
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-3">Choose Manufacturing Line</h2>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-1">Choose Manufacturing Line</h2>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full">
@@ -544,7 +561,12 @@ export default function Kiosk() {
 
       {/* STEP 4: MODEL / FINISH SELECTION & VISUAL BANNER */}
       {currentStep === 'FINISH' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-5xl mx-auto w-full">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-5xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-2">
+            <button onClick={() => setCurrentStep('BRAND')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+              ← Back to Manufacturing Line
+            </button>
+          </div>
           
           <div className="w-full max-w-3xl bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-md mb-8 flex flex-col md:flex-row items-center">
             <div className="w-full md:w-1/2 h-44 bg-slate-100 relative">
@@ -684,6 +706,12 @@ export default function Kiosk() {
               </div>
 
               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-2">Waiting for payment confirmation...</p>
+              
+              <div className="pt-3 border-t border-slate-100 mt-3">
+                <button onClick={() => setCurrentStep('CART_REVIEW')} className="w-full border border-slate-200 text-slate-600 py-2.5 rounded-xl text-[11px] font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50">
+                  ← Back to Quote Review
+                </button>
+              </div>
             </div>
           </div>
         </div>
