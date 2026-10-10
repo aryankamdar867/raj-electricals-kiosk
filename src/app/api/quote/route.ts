@@ -19,7 +19,19 @@ export async function POST(request: Request) {
     if (body.action === 'CREATE_ORDER') {
       const { customer, items, total } = body;
 
-      // 1. Create the quote row — pending payment
+      // Check if quotation contains ONLY wire & cable items (no switches)
+      const isWireOnly = Array.isArray(items) && items.length > 0 && items.every((i: any) => 
+        typeof i.item_name === 'string' && 
+        i.item_name.toUpperCase().includes('WIRE') && 
+        !i.item_name.toUpperCase().includes('SWITCH') &&
+        !i.item_name.toUpperCase().includes('SOCKET') &&
+        !i.item_name.toUpperCase().includes('PLATE')
+      );
+
+      const initialStatus = isWireOnly ? 'paid' : 'pending';
+      const initialPaymentId = isWireOnly ? 'FREE_WIRE_QUOTE' : null;
+
+      // 1. Create the quote row
       const { data: quoteRecord, error: dbError } = await supabase
         .from('quotations')
         .insert([
@@ -29,8 +41,8 @@ export async function POST(request: Request) {
             customer_email: customer.email || null,
             items: items,
             total_amount: Number(total) || 0,
-            payment_status: 'pending',
-            payment_id: null,
+            payment_status: initialStatus,
+            payment_id: initialPaymentId,
             created_at: new Date().toISOString()
           }
         ])
@@ -39,7 +51,21 @@ export async function POST(request: Request) {
 
       if (dbError) throw dbError;
 
-      // 2. Generate Razorpay QR Code for ₹1 processing fee (Test Mode)
+      // 2. If Wire-Only quotation, it's 100% FREE — send notifications and return free: true immediately
+      if (isWireOnly) {
+        try {
+          await sendQuoteNotifications(quoteRecord);
+        } catch (notifErr) {
+          console.error("⚠️ Failed sending free wire quote notifications:", notifErr);
+        }
+        return NextResponse.json({
+          success: true,
+          quoteId: quoteRecord.id,
+          free: true
+        }, { status: 200 });
+      }
+
+      // 3. For Switches (or Switches + Wire), quotation fee is ₹199. Generate Razorpay QR Code
       let qrCodeUrl = '';
       const keyId = process.env.RAZORPAY_KEY_ID;
       const keySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -64,14 +90,14 @@ export async function POST(request: Request) {
           qrCodeUrl = qrCode.image_url;
         } catch (qrErr: any) {
           console.error("⚠️ [Razorpay] QR API call error, generating UPI QR fallback:", qrErr?.message || qrErr);
-          qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=199.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
+          qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=199.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
         }
       } else {
         console.log("ℹ️ [Razorpay] Keys not configured in Vercel Env Vars, using UPI QR fallback.");
-        qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=199.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
+        qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`upi://pay?pa=rajelectricals@upi&pn=Raj%20Electricals&am=199.00&cu=INR&tn=Quote%20${quoteRecord.id}`)}`;
       }
 
-      // 3. Return payment details & QR code URL to client
+      // 4. Return payment details & QR code URL to client
       return NextResponse.json({
         success: true,
         quoteId: quoteRecord.id,

@@ -332,7 +332,7 @@ export default function Kiosk() {
         <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-xl mx-auto w-full">
           <div className="text-center mb-8">
             <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200">WELCOME TO RAJ ELECTRICALS</span><br></br>
-            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200 mt-2">Get Your Quotation For just Rs. 199/-</span>
+            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200 mt-2">Wire Estimation: FREE · Switch Estimation: ₹199/-</span>
             <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-3">Start New Estimation</h2>
           </div>
 
@@ -661,11 +661,11 @@ export default function Kiosk() {
       )}
       {/* STEP 5: SECURE PAYMENT GATEWAY PANEL */}
       {currentStep === 'PAYMENT' && (
-        <div className="flex-1 flex items-center justify-center bg-slate-100 p-8">
-          <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-2xl w-full border border-slate-200/80 flex flex-col md:flex-row gap-8 relative">
+        <div className="flex-1 flex items-center justify-center bg-slate-100 p-6 md:p-8">
+          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-2xl max-w-3xl w-full border border-slate-200/80 flex flex-col md:flex-row gap-8 relative">
             <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#d4af37]" />
             
-            <div className="w-full md:w-1/2 flex flex-col justify-between">
+            <div className="w-full md:w-5/12 flex flex-col justify-between">
               <div>
                 <span className="text-[9px] font-black tracking-widest bg-slate-100 px-2.5 py-1 rounded-full text-slate-500 uppercase">Order Summary</span>
                 <h3 className="text-xl font-black text-slate-950 mt-2 uppercase tracking-wide">
@@ -677,38 +677,39 @@ export default function Kiosk() {
                   {Object.keys(wireCart).length > 0 && (selectedWireVariant ? selectedWireVariant.label : '')}
                 </p>
               </div>
-              <div className="w-full h-48 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 shadow-inner relative flex items-center justify-center">
+              <div className="w-full h-52 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 shadow-inner relative flex items-center justify-center">
                 {Object.keys(cart).length > 0 ? (
                   <img src={BRAND_IMAGES[selectedBrand]} alt={selectedBrand} className="w-full h-full object-cover" />
                 ) : (
                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">PolyCab Wire &amp; Cable</span>
                 )}
               </div>
-              <p className="text-[9px] text-slate-400 font-semibold mt-3 leading-tight">Full breakdown summary is being routed dynamically to {customer.email}.</p>
+              <p className="text-[9px] text-slate-400 font-semibold mt-3 leading-tight">Full breakdown summary is being sent to {customer.email}.</p>
             </div>
 
-            <div className="w-full md:w-1/2 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100 pt-6 md:pt-0 md:pl-6 text-center">
-              <h4 className="text-md font-black text-slate-900 tracking-tight mb-4">Scan Gateway Invoice</h4>
+            <div className="w-full md:w-7/12 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-slate-100 pt-6 md:pt-0 md:pl-8 text-center">
+              <h4 className="text-lg font-black text-slate-900 tracking-tight mb-3">Scan Gateway Invoice QR</h4>
               
-              <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl mb-4 flex justify-between items-center text-left">
+              <div className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl mb-4 flex justify-between items-center text-left">
                 <div>
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Fee</p>
                   <p className="text-2xl font-black text-slate-950">₹199.00</p>
                 </div>
-                <div className="bg-amber-100 text-amber-900 rounded-lg p-2"><Smartphone size={20} /></div>
+                <div className="bg-amber-100 text-amber-900 rounded-lg p-2.5"><Smartphone size={24} /></div>
               </div>
-              <div className="w-64 h-64 bg-white border border-slate-200 rounded-xl flex items-center justify-center overflow-hidden shadow-sm p-2 mx-auto mb-4">
+              <div className="w-72 h-72 md:w-80 md:h-80 bg-white border-2 border-slate-300 rounded-2xl flex items-center justify-center overflow-hidden shadow-md p-3 mx-auto mb-4">
                 {qrCodeUrl ? (
                   <img src={qrCodeUrl} alt="Razorpay UPI QR Code" className="w-full h-full object-contain" />
                 ) : (
-                  <div className="text-[10px] text-slate-400 font-bold animate-pulse">Generating Razorpay QR...</div>
+                  <div className="text-xs text-slate-400 font-bold animate-pulse">Generating Razorpay QR...</div>
                 )}
               </div>
 
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-2">Waiting for payment confirmation...</p>
+              <p className="text-[11px] text-slate-600 font-bold uppercase tracking-wider mt-1">Scan with GPay, PhonePe, Paytm, BHIM</p>
+              <p className="text-[10px] text-amber-600 font-semibold animate-pulse mt-0.5">Waiting for automatic payment confirmation...</p>
               
-              <div className="pt-3 border-t border-slate-100 mt-3">
-                <button onClick={() => setCurrentStep('CART_REVIEW')} className="w-full border border-slate-200 text-slate-600 py-2.5 rounded-xl text-[11px] font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50">
+              <div className="w-full pt-3 border-t border-slate-100 mt-4">
+                <button onClick={() => setCurrentStep('CART_REVIEW')} className="w-full border border-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50">
                   ← Back to Quote Review
                 </button>
               </div>
