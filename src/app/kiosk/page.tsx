@@ -311,78 +311,78 @@ export default function Kiosk() {
     <main className="min-h-screen bg-slate-50 text-slate-800 flex flex-col select-none antialiased font-sans">
       
       {/* BRAND HEADER */}
-      <header className="bg-[#1a1a1a] text-white px-8 py-4 flex justify-between items-center shrink-0 shadow-md relative">
+      <header className="bg-[#1a1a1a] text-white px-4 sm:px-8 py-3 sm:py-4 flex justify-between items-center shrink-0 shadow-md relative">
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#d4af37]" />
-        <div className="flex items-center gap-4">
-          <img src="/RAJ.JPG" alt="Raj Electricals" className="w-14 h-14 rounded-full object-cover shadow-md bg-white" />
+        <div className="flex items-center gap-2.5 sm:gap-4">
+          <img src="/RAJ.JPG" alt="Raj Electricals" className="w-10 h-10 sm:w-14 sm:h-14 rounded-full object-cover shadow-md bg-white shrink-0" />
           <div>
-            <h1 className="text-2xl font-black tracking-wider text-[#d4af37] font-serif">RAJ ELECTRICALS</h1>
-            <p className="text-[10px] text-slate-400 font-bold tracking-widest uppercase">Safe Connections. Stronger Future.</p>
+            <h1 className="text-lg sm:text-2xl font-black tracking-wider text-[#d4af37] font-serif leading-tight">RAJ ELECTRICALS</h1>
+            <p className="text-[9px] sm:text-[10px] text-slate-400 font-bold tracking-widest uppercase">Safe Connections. Stronger Future.</p>
           </div>
         </div>
         {customer.name && (
-          <div className="bg-neutral-900 border border-neutral-800 px-4 py-1.5 rounded-xl text-xs font-bold text-amber-400 flex items-center gap-2 tracking-wide max-w-xs truncate">
-            <User size={13} /> {customer.name}
+          <div className="bg-neutral-900 border border-neutral-800 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-xl text-[10px] sm:text-xs font-bold text-amber-400 flex items-center gap-1.5 sm:gap-2 tracking-wide max-w-[130px] sm:max-w-xs truncate">
+            <User size={12} className="shrink-0" /> <span className="truncate">{customer.name}</span>
           </div>
         )}
       </header>
 
       {/* STEP 1: INITIAL CUSTOMER SIGN-IN */}
       {currentStep === 'CUSTOMER' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-xl mx-auto w-full">
-          <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200">WELCOME TO RAJ ELECTRICALS</span><br></br>
-            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-black tracking-wide border border-amber-200 mt-2">Wire Estimation: FREE · Switch Estimation: ₹199/-</span>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-3">Start New Estimation</h2>
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-xl mx-auto w-full">
+          <div className="text-center mb-6 sm:mb-8">
+            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-[11px] sm:text-xs font-black tracking-wide border border-amber-200">WELCOME TO RAJ ELECTRICALS</span><br></br>
+            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-[11px] sm:text-xs font-black tracking-wide border border-amber-200 mt-2">Wire Estimation: FREE · Switch Estimation: ₹199/-</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-3">Start New Estimation</h2>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl border border-slate-200 w-full shadow-xl space-y-4">
+          <div className="bg-white p-5 sm:p-8 rounded-2xl border border-slate-200 w-full shadow-xl space-y-4">
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Client Name *</label>
-              <input type="text" placeholder="Enter Full Name" value={customer.name} onChange={e => setCustomer({...customer, name: e.target.value})} className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold outline-none focus:border-[#d4af37] text-slate-900" />
+              <input type="text" placeholder="Enter Full Name" value={customer.name} onChange={e => setCustomer({...customer, name: e.target.value})} className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold outline-none focus:border-[#d4af37] text-slate-900" />
             </div>
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">WhatsApp Number *</label>
-              <input type="tel" placeholder="Enter Contact Number" value={customer.phone} onChange={e => setCustomer({...customer, phone: e.target.value})} className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold outline-none focus:border-[#d4af37] text-slate-900" />
+              <input type="tel" placeholder="Enter Contact Number" value={customer.phone} onChange={e => setCustomer({...customer, phone: e.target.value})} className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold outline-none focus:border-[#d4af37] text-slate-900" />
             </div>
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email Address *</label>
-              <input type="email" placeholder="name@company.com" value={customer.email} onChange={e => setCustomer({...customer, email: e.target.value})} className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold outline-none focus:border-[#d4af37] text-slate-900" />
+              <input type="email" placeholder="name@company.com" value={customer.email} onChange={e => setCustomer({...customer, email: e.target.value})} className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold outline-none focus:border-[#d4af37] text-slate-900" />
               <p className="text-[10px] text-slate-500 font-semibold mt-1">Enter a valid email id as quotation will be received on email.</p>
             </div>
-            <button disabled={!customer.name || !customer.phone || !customer.email} onClick={() => setCurrentStep('CATEGORY')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer disabled:bg-slate-100 disabled:text-slate-400 shadow-md mt-4">Open Component Selection Sheet →</button>
+            <button disabled={!customer.name || !customer.phone || !customer.email} onClick={() => setCurrentStep('CATEGORY')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-3.5 sm:py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer disabled:bg-slate-100 disabled:text-slate-400 shadow-md mt-4">Open Component Selection Sheet →</button>
           </div>
         </div>
       )}
 
       {/* STEP 1.5: CHOOSE PRODUCT CATEGORY (HUB) */}
       {currentStep === 'CATEGORY' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full relative">
-          <div className="w-full flex justify-start mb-2">
-            <button onClick={() => setCurrentStep('CUSTOMER')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-4xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-3 sm:mb-2">
+            <button onClick={() => setCurrentStep('CUSTOMER')} className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
               ← Back to Client Details
             </button>
           </div>
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-1">What Are You Quoting Today?</h2>
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">What Are You Quoting Today?</h2>
             <p className="text-xs text-slate-400 font-bold mt-2 uppercase tracking-widest">Add items from as many categories as you need</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full mb-6 sm:mb-8">
             <button
               onClick={() => { setSelectedCategory('WIRE_CABLE'); setCurrentStep('WIRE_VARIANT'); }}
-              className="bg-white hover:bg-neutral-900 hover:text-amber-400 p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all text-center cursor-pointer flex flex-col items-center gap-3 group relative"
+              className="bg-white hover:bg-neutral-900 hover:text-amber-400 p-5 sm:p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all text-center cursor-pointer flex flex-col items-center gap-2 sm:gap-3 group relative"
             >
               {Object.keys(wireCart).length > 0 && (
                 <span className="absolute top-3 right-3 bg-emerald-100 text-emerald-700 text-[9px] font-black px-2 py-1 rounded-full uppercase tracking-widest flex items-center gap-1"><CheckCircle size={12} /> Added</span>
               )}
-              <span className="font-black text-lg uppercase tracking-wider block">Wire &amp; Cable</span>
-              <span className="text-[10px] text-slate-400 group-hover:text-amber-400/70 font-bold uppercase tracking-widest">PolyCab</span>
+              <span className="font-black text-base sm:text-lg uppercase tracking-wider block">Wire &amp; Cable</span>
+              <span className="text-[10px] text-slate-400 group-hover:text-amber-400/70 font-bold uppercase tracking-widest">PolyCab · Free Estimate</span>
             </button>
             <button
               onClick={() => { if (!WIRE_ONLY_MODE) { setSelectedCategory('SWITCHES'); setCurrentStep('ITEMS'); } }}
               disabled={WIRE_ONLY_MODE}
-              className={`p-8 rounded-2xl border border-slate-200 shadow-sm text-center flex flex-col items-center gap-3 group relative transition-all ${
+              className={`p-5 sm:p-8 rounded-2xl border border-slate-200 shadow-sm text-center flex flex-col items-center gap-2 sm:gap-3 group relative transition-all ${
                 WIRE_ONLY_MODE
                   ? 'bg-slate-100 opacity-50 cursor-not-allowed'
                   : 'bg-white hover:bg-neutral-900 hover:text-amber-400 hover:shadow-xl cursor-pointer'
@@ -394,13 +394,13 @@ export default function Kiosk() {
               {!WIRE_ONLY_MODE && Object.keys(cart).length > 0 && (
                 <span className="absolute top-3 right-3 bg-emerald-100 text-emerald-700 text-[9px] font-black px-2 py-1 rounded-full uppercase tracking-widest flex items-center gap-1"><CheckCircle size={12} /> Added</span>
               )}
-              <span className="font-black text-lg uppercase tracking-wider block">Switch &amp; SwitchGear</span>
+              <span className="font-black text-base sm:text-lg uppercase tracking-wider block">Switch &amp; SwitchGear</span>
               <span className="text-[10px] text-slate-400 group-hover:text-amber-400/70 font-bold uppercase tracking-widest">9 Brands Available</span>
             </button>
             <button
               onClick={() => { if (!WIRE_ONLY_MODE) { setSelectedCategory('LIGHTING'); setCurrentStep('LIGHTING_SOON'); } }}
               disabled={WIRE_ONLY_MODE}
-              className={`p-8 rounded-2xl border border-slate-200 shadow-sm text-center flex flex-col items-center gap-3 group relative transition-all ${
+              className={`p-5 sm:p-8 rounded-2xl border border-slate-200 shadow-sm text-center flex flex-col items-center gap-2 sm:gap-3 group relative transition-all ${
                 WIRE_ONLY_MODE
                   ? 'bg-slate-100 opacity-50 cursor-not-allowed'
                   : 'bg-white hover:bg-neutral-900 hover:text-amber-400 hover:shadow-xl cursor-pointer'
@@ -409,20 +409,20 @@ export default function Kiosk() {
               {WIRE_ONLY_MODE && (
                 <span className="absolute top-3 right-3 bg-slate-200 text-slate-500 text-[9px] font-black px-2 py-1 rounded-full uppercase tracking-widest">Coming Soon</span>
               )}
-              <span className="font-black text-lg uppercase tracking-wider block">Lighting</span>
+              <span className="font-black text-base sm:text-lg uppercase tracking-wider block">Lighting</span>
               <span className="text-[10px] text-slate-400 group-hover:text-amber-400/70 font-bold uppercase tracking-widest">Crompton · Havells · Philips</span>
             </button>
           </div>
 
           {(Object.keys(cart).length > 0 || Object.keys(wireCart).length > 0) && (
-            <button onClick={() => setCurrentStep('CART_REVIEW')} className="w-full max-w-md bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer shadow-md">Review &amp; Get Final Quote →</button>
+            <button onClick={() => setCurrentStep('CART_REVIEW')} className="w-full max-w-md bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-3.5 sm:py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer shadow-md">Review &amp; Get Final Quote →</button>
           )}
         </div>
       )}
 
       {/* STEP: LIGHTING (Data pending) */}
       {currentStep === 'LIGHTING_SOON' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-xl mx-auto w-full text-center">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-xl mx-auto w-full text-center">
           <div className="bg-amber-100 text-amber-900 p-4 rounded-full mb-5 border border-amber-200 shadow-inner"><ImageIcon size={40} /></div>
           <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-2">Lighting Catalog Coming Soon</h2>
           <p className="text-sm text-slate-500 max-w-md leading-relaxed mb-6">We&apos;re still loading the Lighting item list (Crompton, Lord&apos;s, Philips, Havells, PolyCab, Ecolink). Please choose another category for now.</p>
@@ -432,24 +432,24 @@ export default function Kiosk() {
 
       {/* STEP: WIRE & CABLE - CHOOSE VARIANT */}
       {currentStep === 'WIRE_VARIANT' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full relative">
-          <div className="w-full flex justify-start mb-2">
-            <button onClick={() => setCurrentStep('CATEGORY')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-4xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-3 sm:mb-2">
+            <button onClick={() => setCurrentStep('CATEGORY')} className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
               ← Back to Categories
             </button>
           </div>
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-1">Choose Wire Range</h2>
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">Choose Wire Range</h2>
             <p className="text-xs text-slate-400 font-bold mt-2 uppercase tracking-widest">PolyCab Wire &amp; Cable</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full">
             {WIRE_VARIANTS.map(variant => (
               <button
                 key={variant.key}
                 onClick={() => { setSelectedWireVariantKey(variant.key); setCurrentStep('WIRE_ITEMS'); }}
-                className="bg-white hover:bg-neutral-900 hover:text-amber-400 p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all text-center cursor-pointer flex flex-col items-center gap-2 group"
+                className="bg-white hover:bg-neutral-900 hover:text-amber-400 p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all text-center cursor-pointer flex flex-col items-center gap-2 group"
               >
-                <span className="font-black text-md uppercase tracking-wider block">{variant.label}</span>
+                <span className="font-black text-sm sm:text-md uppercase tracking-wider block">{variant.label}</span>
               </button>
             ))}
           </div>
@@ -458,77 +458,76 @@ export default function Kiosk() {
 
       {/* STEP: WIRE & CABLE - CHOOSE SIZES & METERS */}
       {currentStep === 'WIRE_ITEMS' && selectedWireVariant && (
-        <div className="flex-1 flex overflow-hidden">
-          <div className="w-2/3 p-8 overflow-y-auto bg-slate-100/60 grid grid-cols-1 md:grid-cols-2 gap-4 content-start">
+        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+          <div className="w-full md:w-2/3 p-4 sm:p-6 md:p-8 overflow-y-auto bg-slate-100/60 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 content-start flex-1">
             {WIRE_SIZES.map((size, index) => {
               const currentVal = wireCart[size] || '';
-              const pricePerMeter = getWirePricePerMeter(selectedWireVariant, size);
               return (
-                <div key={index} className="p-4 bg-white border border-slate-200 rounded-xl shadow-xs flex items-center justify-between gap-4">
+                <div key={index} className="p-3 sm:p-4 bg-white border border-slate-200 rounded-xl shadow-xs flex items-center justify-between gap-3 sm:gap-4">
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-extrabold text-slate-950 text-sm tracking-tight truncate">{size}</h4>
+                    <h4 className="font-extrabold text-slate-950 text-xs sm:text-sm tracking-tight truncate">{size}</h4>
                   </div>
-                  <div className="w-28 shrink-0 flex flex-col items-end">
-                    <input type="number" min="0" placeholder="0 m" value={currentVal} onChange={(e) => handleWireMetersChange(size, e.target.value)} className="w-full text-center py-2 bg-slate-50 border border-slate-200 focus:border-[#d4af37] text-sm font-black text-slate-900 rounded-lg outline-none" />
+                  <div className="w-24 sm:w-28 shrink-0 flex flex-col items-end">
+                    <input type="number" min="0" placeholder="0 m" value={currentVal} onChange={(e) => handleWireMetersChange(size, e.target.value)} className="w-full text-center py-2 bg-slate-50 border border-slate-200 focus:border-[#d4af37] text-xs sm:text-sm font-black text-slate-900 rounded-lg outline-none" />
                   </div>
                 </div>
               );
             })}
           </div>
 
-          <div className="w-1/3 bg-white border-l border-slate-200 p-8 flex flex-col justify-between shadow-xl">
-            <div className="space-y-6 overflow-y-auto flex-1 pr-1">
-              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 mb-4 pb-2 border-b border-slate-100"><ShoppingCart size={16} className="text-[#d4af37]" /> Selected Wire Meterage</h3>
-              <div className="space-y-1.5 max-h-[24rem] overflow-y-auto pr-1">
+          <div className="w-full md:w-1/3 bg-white border-t md:border-t-0 md:border-l border-slate-200 p-4 sm:p-6 md:p-8 flex flex-col justify-between shadow-xl shrink-0 max-h-[42vh] md:max-h-none overflow-y-auto md:overflow-visible">
+            <div className="space-y-4 sm:space-y-6 flex-1 pr-1">
+              <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 mb-2 sm:mb-4 pb-2 border-b border-slate-100"><ShoppingCart size={16} className="text-[#d4af37]" /> Selected Wire Meterage</h3>
+              <div className="space-y-1.5 max-h-24 sm:max-h-32 md:max-h-[24rem] overflow-y-auto pr-1">
                 {Object.entries(wireCart).map(([size, meters]) => (
-                  <div key={size} className="bg-slate-50 px-3 py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
+                  <div key={size} className="bg-slate-50 px-3 py-1.5 sm:py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
                     <span className="truncate pr-4">{size}</span>
                     <span className="text-slate-950 font-black">{meters}m</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="pt-4 border-t border-slate-100 space-y-2">
-              <button onClick={() => setCurrentStep('WIRE_VARIANT')} className="w-full border border-slate-200 text-slate-700 py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50 mb-2">← Back to Wire Range</button>
-              <button disabled={Object.keys(wireCart).length === 0} onClick={() => setCurrentStep('CATEGORY')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all disabled:bg-slate-100 disabled:text-slate-400 cursor-pointer shadow-md">Add Wire &amp; Cable to Quote →</button>
+            <div className="pt-3 sm:pt-4 border-t border-slate-100 space-y-2 shrink-0">
+              <button onClick={() => setCurrentStep('WIRE_VARIANT')} className="w-full border border-slate-200 text-slate-700 py-2.5 sm:py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50 mb-1 sm:mb-2">← Back to Wire Range</button>
+              <button disabled={Object.keys(wireCart).length === 0} onClick={() => setCurrentStep('CATEGORY')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-3 sm:py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all disabled:bg-slate-100 disabled:text-slate-400 cursor-pointer shadow-md">Add Wire &amp; Cable to Quote →</button>
             </div>
           </div>
         </div>
       )}
       {/* STEP 2: CHOOSE ITEMS & QUANTITIES */}
       {currentStep === 'ITEMS' && (
-        <div className="flex-1 flex overflow-hidden">
-          <div className="w-2/3 p-8 overflow-y-auto bg-slate-100/60 grid grid-cols-1 md:grid-cols-2 gap-4 content-start">
+        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+          <div className="w-full md:w-2/3 p-4 sm:p-6 md:p-8 overflow-y-auto bg-slate-100/60 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 content-start flex-1">
             {BASE_ITEMS.map((itemName, index) => {
               const currentVal = cart[itemName] || '';
               return (
-                <div key={index} className="p-4 bg-white border border-slate-200 rounded-xl shadow-xs flex items-center justify-between gap-4">
+                <div key={index} className="p-3 sm:p-4 bg-white border border-slate-200 rounded-xl shadow-xs flex items-center justify-between gap-3 sm:gap-4">
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-extrabold text-slate-950 text-sm tracking-tight truncate">{itemName}</h4>
+                    <h4 className="font-extrabold text-slate-950 text-xs sm:text-sm tracking-tight truncate">{itemName}</h4>
                   </div>
-                  <div className="w-24 shrink-0 flex flex-col items-end">
-                    <input type="number" min="0" placeholder="0" value={currentVal} onChange={(e) => handleQuantityChange(itemName, e.target.value)} className="w-full text-center py-2 bg-slate-50 border border-slate-200 focus:border-[#d4af37] text-sm font-black text-slate-900 rounded-lg outline-none" />
+                  <div className="w-20 sm:w-24 shrink-0 flex flex-col items-end">
+                    <input type="number" min="0" placeholder="0" value={currentVal} onChange={(e) => handleQuantityChange(itemName, e.target.value)} className="w-full text-center py-2 bg-slate-50 border border-slate-200 focus:border-[#d4af37] text-xs sm:text-sm font-black text-slate-900 rounded-lg outline-none" />
                   </div>
                 </div>
               );
             })}
           </div>
 
-          <div className="w-1/3 bg-white border-l border-slate-200 p-8 flex flex-col justify-between shadow-xl">
-            <div className="space-y-6 overflow-y-auto flex-1 pr-1">
-              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 mb-4 pb-2 border-b border-slate-100"><ShoppingCart size={16} className="text-[#d4af37]" /> Selected Modules</h3>
-              <div className="space-y-1.5 max-h-[24rem] overflow-y-auto pr-1">
+          <div className="w-full md:w-1/3 bg-white border-t md:border-t-0 md:border-l border-slate-200 p-4 sm:p-6 md:p-8 flex flex-col justify-between shadow-xl shrink-0 max-h-[42vh] md:max-h-none overflow-y-auto md:overflow-visible">
+            <div className="space-y-4 sm:space-y-6 flex-1 pr-1">
+              <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 mb-2 sm:mb-4 pb-2 border-b border-slate-100"><ShoppingCart size={16} className="text-[#d4af37]" /> Selected Modules ({Object.keys(cart).length})</h3>
+              <div className="space-y-1.5 max-h-24 sm:max-h-32 md:max-h-[24rem] overflow-y-auto pr-1">
                 {Object.entries(cart).map(([name, qty]) => (
-                  <div key={name} className="bg-slate-50 px-3 py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
+                  <div key={name} className="bg-slate-50 px-3 py-1.5 sm:py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
                     <span className="truncate pr-4">{name}</span>
                     <span className="text-slate-950 font-black">×{qty}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="pt-4 border-t border-slate-100 space-y-2">
-              <button onClick={() => setCurrentStep('CATEGORY')} className="w-full border border-slate-200 text-slate-700 py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50 mb-2">← Back to Categories</button>
-              <button disabled={Object.keys(cart).length === 0} onClick={() => setCurrentStep('BRAND')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all disabled:bg-slate-100 disabled:text-slate-400 cursor-pointer shadow-md">Proceed to Company Selection →</button>
+            <div className="pt-3 sm:pt-4 border-t border-slate-100 space-y-2 shrink-0">
+              <button onClick={() => setCurrentStep('CATEGORY')} className="w-full border border-slate-200 text-slate-700 py-2.5 sm:py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50 mb-1 sm:mb-2">← Back to Categories</button>
+              <button disabled={Object.keys(cart).length === 0} onClick={() => setCurrentStep('BRAND')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-3 sm:py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all disabled:bg-slate-100 disabled:text-slate-400 cursor-pointer shadow-md">Proceed to Company Selection →</button>
             </div>
           </div>
         </div>
@@ -536,23 +535,23 @@ export default function Kiosk() {
 
       {/* STEP 3: COMPANY SELECTION */}
       {currentStep === 'BRAND' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full relative">
-          <div className="w-full flex justify-start mb-2">
-            <button onClick={() => setCurrentStep('ITEMS')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-4xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-3 sm:mb-2">
+            <button onClick={() => setCurrentStep('ITEMS')} className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
               ← Back to Select Modules
             </button>
           </div>
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-1">Choose Manufacturing Line</h2>
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">Choose Manufacturing Line</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 w-full">
             {COMPANIES.map(brand => (
-              <button key={brand} onClick={() => { setSelectedBrand(brand); setCurrentStep('FINISH'); }} className="bg-white hover:bg-neutral-900 hover:text-amber-400 p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all text-center cursor-pointer flex flex-col items-center gap-4 group">
-                <div className="w-full h-24 bg-slate-50 rounded-xl overflow-hidden relative border border-slate-100">
+              <button key={brand} onClick={() => { setSelectedBrand(brand); setCurrentStep('FINISH'); }} className="bg-white hover:bg-neutral-900 hover:text-amber-400 p-3 sm:p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all text-center cursor-pointer flex flex-col items-center gap-2 sm:gap-4 group">
+                <div className="w-full h-20 sm:h-24 bg-slate-50 rounded-xl overflow-hidden relative border border-slate-100">
                   <img src={BRAND_IMAGES[brand]} alt={brand} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
-                <span className="font-black text-md uppercase tracking-wider block">{brand}</span>
+                <span className="font-black text-xs sm:text-md uppercase tracking-wider block">{brand}</span>
               </button>
             ))}
           </div>
@@ -561,38 +560,38 @@ export default function Kiosk() {
 
       {/* STEP 4: MODEL / FINISH SELECTION & VISUAL BANNER */}
       {currentStep === 'FINISH' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-5xl mx-auto w-full relative">
-          <div className="w-full flex justify-start mb-2">
-            <button onClick={() => setCurrentStep('BRAND')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
+        <div className="flex-1 flex flex-col items-center justify-start sm:justify-center p-4 sm:p-8 max-w-5xl mx-auto w-full relative">
+          <div className="w-full flex justify-start mb-3 sm:mb-2">
+            <button onClick={() => setCurrentStep('BRAND')} className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-slate-200/80 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl uppercase tracking-wider transition-all cursor-pointer">
               ← Back to Manufacturing Line
             </button>
           </div>
           
-          <div className="w-full max-w-3xl bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-md mb-8 flex flex-col md:flex-row items-center">
-            <div className="w-full md:w-1/2 h-44 bg-slate-100 relative">
+          <div className="w-full max-w-3xl bg-white border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-md mb-4 sm:mb-8 flex flex-col md:flex-row items-center">
+            <div className="w-full md:w-1/2 h-36 sm:h-44 bg-slate-100 relative">
               <img src={BRAND_IMAGES[selectedBrand]} alt={selectedBrand} className="w-full h-full object-cover" />
               <div className="absolute top-3 left-3 bg-black/70 text-amber-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">Preview Model Frame</div>
             </div>
-            <div className="p-6 md:w-1/2 text-left w-full">
+            <div className="p-4 sm:p-6 md:w-1/2 text-left w-full">
               <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Selected Assembly Line</span>
-              <h3 className="text-2xl font-black text-slate-950 uppercase tracking-wide">{selectedBrand} Curation</h3>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-950 uppercase tracking-wide">{selectedBrand} Curation</h3>
               <p className="text-xs text-slate-500 font-medium mt-1">Configuring structural mechanisms using verified premium polycarbonate specifications.</p>
             </div>
           </div>
 
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Select Model Plate Finish</h2>
+          <div className="text-center mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Select Model Plate Finish</h2>
           </div>
 
           {/* Smooth Scroll Grid Loading Your Transcribed Finishes Dynamically */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full mb-8 max-h-[45vh] overflow-y-auto p-2 border border-slate-200/80 rounded-2xl bg-white/50 shadow-inner">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-4 w-full mb-4 sm:mb-8 max-h-[40vh] sm:max-h-[45vh] overflow-y-auto p-2 border border-slate-200/80 rounded-2xl bg-white/50 shadow-inner">
             {currentFinishesList.map(item => (
               <button 
                 key={item.name} 
                 onClick={() => setSelectedFinish(item.name)} 
-                className={`p-3 rounded-xl border text-left cursor-pointer transition-all flex flex-col gap-2 relative overflow-hidden ${selectedFinish === item.name ? 'border-[#d4af37] bg-amber-50/30 ring-2 ring-[#d4af37]/20' : 'bg-white border-slate-200 hover:border-slate-300'}`}
+                className={`p-2.5 sm:p-3 rounded-xl border text-left cursor-pointer transition-all flex flex-col gap-2 relative overflow-hidden ${selectedFinish === item.name ? 'border-[#d4af37] bg-amber-50/30 ring-2 ring-[#d4af37]/20' : 'bg-white border-slate-200 hover:border-slate-300'}`}
               >
-                <div className="w-full h-20 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+                <div className="w-full h-16 sm:h-20 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
                   <img src={item.img} alt={item.name} className="w-full h-full object-cover" />
                   {selectedFinish === item.name && (
                     <div className="absolute inset-0 bg-[#d4af37]/10 flex items-center justify-center">
@@ -602,14 +601,14 @@ export default function Kiosk() {
                 </div>
                 <div className="min-w-0">
                   <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase block">Model Finish</span>
-                  <span className="font-extrabold text-slate-900 text-[11px] tracking-tight line-clamp-2 leading-tight h-8 block">{item.name}</span>
+                  <span className="font-extrabold text-slate-900 text-[10px] sm:text-[11px] tracking-tight line-clamp-2 leading-tight h-7 sm:h-8 block">{item.name}</span>
                 </div>
               </button>
             ))}
           </div>
 
           {selectedFinish && Object.keys(cart).length > 0 && (
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 max-w-md w-full shadow-md text-center">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 max-w-md w-full shadow-md text-center mb-4">
               <button onClick={() => setCurrentStep('CATEGORY')} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-3.5 rounded-xl text-xs font-black tracking-widest uppercase transition-all shadow-sm">Add Switches to Quote →</button>
             </div>
           )}
@@ -617,19 +616,19 @@ export default function Kiosk() {
       )}
       {/* STEP: REVIEW COMBINED QUOTE ACROSS CATEGORIES */}
       {currentStep === 'CART_REVIEW' && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-xl mx-auto w-full">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-xl mx-auto w-full">
           <div className="text-center mb-6">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Review Your Quote</h2>
-            <p className="text-xs text-slate-400 font-bold mt-2 uppercase tracking-widest">{customer.name}</p>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Review Your Quote</h2>
+            <p className="text-xs text-slate-400 font-bold mt-1 sm:mt-2 uppercase tracking-widest">{customer.name}</p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 w-full shadow-xl space-y-5">
+          <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 w-full shadow-xl space-y-4 sm:space-y-5">
             {Object.keys(cart).length > 0 && (
               <div>
                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100">Switch &amp; SwitchGear — {selectedBrand} ({selectedFinish})</h3>
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 max-h-36 sm:max-h-48 overflow-y-auto pr-1">
                   {Object.entries(cart).map(([name, qty]) => (
-                    <div key={name} className="bg-slate-50 px-3 py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
+                    <div key={name} className="bg-slate-50 px-3 py-1.5 sm:py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
                       <span className="truncate pr-4">{name}</span>
                       <span className="text-slate-950 font-black">×{qty}</span>
                     </div>
@@ -641,9 +640,9 @@ export default function Kiosk() {
             {Object.keys(wireCart).length > 0 && (
               <div>
                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100">Wire &amp; Cable — {selectedWireVariant ? selectedWireVariant.label : ''}</h3>
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 max-h-36 sm:max-h-48 overflow-y-auto pr-1">
                   {Object.entries(wireCart).map(([size, meters]) => (
-                    <div key={size} className="bg-slate-50 px-3 py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
+                    <div key={size} className="bg-slate-50 px-3 py-1.5 sm:py-2 rounded-lg text-xs font-bold flex justify-between text-slate-700 border border-slate-100">
                       <span className="truncate pr-4">{size}</span>
                       <span className="text-slate-950 font-black">{meters}m</span>
                     </div>
@@ -654,50 +653,50 @@ export default function Kiosk() {
 
             <div className="pt-2 space-y-2">
               <button onClick={() => setCurrentStep('CATEGORY')} className="w-full border border-slate-200 text-slate-700 py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50">← Add More Items</button>
-              <button disabled={loading} onClick={handleGenerateQuote} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer shadow-md">{loading ? 'Processing Curation...' : 'Confirm & Generate Quote →'}</button>
+              <button disabled={loading} onClick={handleGenerateQuote} className="w-full bg-[#1a1a1a] hover:bg-black text-[#d4af37] py-3.5 sm:py-4 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer shadow-md">{loading ? 'Processing Curation...' : 'Confirm & Generate Quote →'}</button>
             </div>
           </div>
         </div>
       )}
       {/* STEP 5: SECURE PAYMENT GATEWAY PANEL */}
       {currentStep === 'PAYMENT' && (
-        <div className="flex-1 flex items-center justify-center bg-slate-100 p-6 md:p-8">
-          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-2xl max-w-3xl w-full border border-slate-200/80 flex flex-col md:flex-row gap-8 relative">
+        <div className="flex-1 flex items-center justify-center bg-slate-100 p-3 sm:p-6 md:p-8">
+          <div className="bg-white p-4 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-2xl max-w-3xl w-full border border-slate-200/80 flex flex-col md:flex-row gap-6 sm:gap-8 relative">
             <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#d4af37]" />
             
             <div className="w-full md:w-5/12 flex flex-col justify-between">
               <div>
                 <span className="text-[9px] font-black tracking-widest bg-slate-100 px-2.5 py-1 rounded-full text-slate-500 uppercase">Order Summary</span>
-                <h3 className="text-xl font-black text-slate-950 mt-2 uppercase tracking-wide">
+                <h3 className="text-lg sm:text-xl font-black text-slate-950 mt-2 uppercase tracking-wide">
                   {[Object.keys(cart).length > 0 ? 'Switches' : null, Object.keys(wireCart).length > 0 ? 'Wire & Cable' : null].filter(Boolean).join(' + ')}
                 </h3>
-                <p className="text-xs text-slate-400 font-bold mt-0.5 mb-4 uppercase tracking-widest">
+                <p className="text-xs text-slate-400 font-bold mt-0.5 mb-3 sm:mb-4 uppercase tracking-widest">
                   {Object.keys(cart).length > 0 && `${selectedBrand} (${selectedFinish})`}
                   {Object.keys(cart).length > 0 && Object.keys(wireCart).length > 0 && ' · '}
                   {Object.keys(wireCart).length > 0 && (selectedWireVariant ? selectedWireVariant.label : '')}
                 </p>
               </div>
-              <div className="w-full h-52 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 shadow-inner relative flex items-center justify-center">
+              <div className="w-full h-36 sm:h-52 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 shadow-inner relative flex items-center justify-center">
                 {Object.keys(cart).length > 0 ? (
                   <img src={BRAND_IMAGES[selectedBrand]} alt={selectedBrand} className="w-full h-full object-cover" />
                 ) : (
                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">PolyCab Wire &amp; Cable</span>
                 )}
               </div>
-              <p className="text-[9px] text-slate-400 font-semibold mt-3 leading-tight">Full breakdown summary is being sent to {customer.email}.</p>
+              <p className="text-[9px] text-slate-400 font-semibold mt-2 sm:mt-3 leading-tight">Full breakdown summary is being sent to {customer.email}.</p>
             </div>
 
-            <div className="w-full md:w-7/12 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-slate-100 pt-6 md:pt-0 md:pl-8 text-center">
-              <h4 className="text-lg font-black text-slate-900 tracking-tight mb-3">Scan Gateway Invoice QR</h4>
+            <div className="w-full md:w-7/12 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-slate-100 pt-5 md:pt-0 md:pl-8 text-center">
+              <h4 className="text-base sm:text-lg font-black text-slate-900 tracking-tight mb-3">Scan Gateway Invoice QR</h4>
               
-              <div className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl mb-4 flex justify-between items-center text-left">
+              <div className="w-full bg-slate-50 border border-slate-200 p-3 sm:p-4 rounded-xl mb-3 sm:mb-4 flex justify-between items-center text-left">
                 <div>
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Fee</p>
-                  <p className="text-2xl font-black text-slate-950">₹199.00</p>
+                  <p className="text-xl sm:text-2xl font-black text-slate-950">₹199.00</p>
                 </div>
-                <div className="bg-amber-100 text-amber-900 rounded-lg p-2.5"><Smartphone size={24} /></div>
+                <div className="bg-amber-100 text-amber-900 rounded-lg p-2 sm:p-2.5"><Smartphone size={22} /></div>
               </div>
-              <div className="w-72 h-72 md:w-80 md:h-80 bg-white border-2 border-slate-300 rounded-2xl flex items-center justify-center overflow-hidden shadow-md p-3 mx-auto mb-4">
+              <div className="w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 bg-white border-2 border-slate-300 rounded-2xl flex items-center justify-center overflow-hidden shadow-md p-3 mx-auto mb-3 sm:mb-4">
                 {qrCodeUrl ? (
                   <img src={qrCodeUrl} alt="Razorpay UPI QR Code" className="w-full h-full object-contain" />
                 ) : (
@@ -708,7 +707,7 @@ export default function Kiosk() {
               <p className="text-[11px] text-slate-600 font-bold uppercase tracking-wider mt-1">Scan with GPay, PhonePe, Paytm, BHIM</p>
               <p className="text-[10px] text-amber-600 font-semibold animate-pulse mt-0.5">Waiting for automatic payment confirmation...</p>
               
-              <div className="w-full pt-3 border-t border-slate-100 mt-4">
+              <div className="w-full pt-3 border-t border-slate-100 mt-3 sm:mt-4">
                 <button onClick={() => setCurrentStep('CART_REVIEW')} className="w-full border border-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-black tracking-widest uppercase transition-all cursor-pointer hover:bg-slate-50">
                   ← Back to Quote Review
                 </button>
@@ -720,11 +719,11 @@ export default function Kiosk() {
 
       {/* STEP 6: SUCCESS DISPLAY */}
       {currentStep === 'SUCCESS' && (
-        <div className="flex-1 flex flex-col items-center justify-center bg-white p-6 text-center">
-          <div className="bg-emerald-50 text-emerald-600 p-4 rounded-full mb-5 border border-emerald-100 shadow-inner"><CheckCircle size={56} /></div>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Quotation Processed!</h2>
-          <p className="text-sm text-slate-600 max-w-md leading-relaxed">Thank you, <span className="text-amber-600 font-extrabold">{customer.name}</span>. The calculation has been sent to <span className="font-extrabold text-slate-900">{customer.phone}</span> and via email to <span className="font-extrabold text-slate-950">{customer.email}</span>.</p>
-          <button onClick={resetWorkflow} className="mt-8 px-6 py-2.5 border border-slate-200 text-slate-700 font-black tracking-widest text-xs uppercase rounded-xl hover:bg-slate-50 cursor-pointer">New Estimation Form</button>
+        <div className="flex-1 flex flex-col items-center justify-center bg-white p-4 sm:p-6 text-center">
+          <div className="bg-emerald-50 text-emerald-600 p-4 rounded-full mb-4 sm:mb-5 border border-emerald-100 shadow-inner"><CheckCircle size={48} className="sm:w-14 sm:h-14" /></div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">Quotation Processed!</h2>
+          <p className="text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">Thank you, <span className="text-amber-600 font-extrabold">{customer.name}</span>. The calculation has been sent to <span className="font-extrabold text-slate-900">{customer.phone}</span> and via email to <span className="font-extrabold text-slate-950">{customer.email}</span>.</p>
+          <button onClick={resetWorkflow} className="mt-6 sm:mt-8 px-6 py-2.5 border border-slate-200 text-slate-700 font-black tracking-widest text-xs uppercase rounded-xl hover:bg-slate-50 cursor-pointer">New Estimation Form</button>
         </div>
       )}
     </main>
